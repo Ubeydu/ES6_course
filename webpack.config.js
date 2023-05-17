@@ -7,7 +7,20 @@ module.exports = {
         filename: 'bundle.js'
     },
     devServer: {
+        static: {
+            directory: path.resolve(__dirname, 'build'),
+        },
         port: 3000,
-        contentBase: path.resolve(__dirname, 'build')
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                }
+            }
+        ]
     }
 };

@@ -92,12 +92,87 @@
 
 // console.log(scale(2))
 
-let isPassing = (grade) => {
-  return grade >= 70;
+// let isPassing = (grade) => {
+//   return grade >= 70;
+// }
+
+// let scores = [90, 85, 67, 71, 70, 55, 92];
+
+// let passing = scores.filter(element => element >= 15);
+
+// console.log(passing);
+
+// import { students, total } from "./students";
+// console.log(students, total);
+
+// import multiply from './calculator';
+// //console.log(add(3, 5));
+// console.log(multiply(3, 10));
+
+// let Merry = new Entity("Ubeyd", 1.73);
+// Merry.greet();
+
+// import {Entity, Wizard} from "./entity";
+
+// class Hobbit extends Entity {
+//   constructor(name, height) {
+//     super(name, height);
+//   }
+
+//   greet() {
+//     console.log(`Hello. I'm ${this.name} from the Shire!`);
+//   }
+// }
+
+// let Frodo = new Hobbit("Frodo Baggins", 4.5);
+// console.log(Frodo);
+// Frodo.greet();
+
+// class Gandalf extends Wizard {
+//   constructor(power_level) {
+//     super(power_level);
+//   }
+// }
+
+// let Gandalfv2 = new Gandalf(200);
+// console.log(Gandalfv2.power_level);
+
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
+const api_key = 'c3ce690e64435932e45aeb4ed7539356';
+const lat = 25;
+const lon = 30;
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      city: 'London',
+      description: ''
+    }
+  }
+
+  componentDidMount() {
+    this.grabWeather(this.state.city);
+  }
+
+  grabWeather(city) {
+    fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${api_key}`)
+      .then(response => response.json())
+      .then(json => {
+        this.setState({description: json.list[0].weather[0].description})
+      });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Weather for {this.state.city}!</h1>
+        <h2>{this.state.description}</h2>
+      </div>
+    )
+  }
 }
 
-let scores = [90, 85, 67, 71, 70, 55, 92];
-
-let passing = scores.filter(isPassing);
-
-console.log(passing);
+ReactDOM.render(<App />, document.getElementById('root'));
